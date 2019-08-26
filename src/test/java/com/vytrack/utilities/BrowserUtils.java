@@ -3,12 +3,12 @@ package com.vytrack.utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 public class BrowserUtils {
     private static final Logger logger = LogManager.getLogger();
@@ -296,7 +296,7 @@ public class BrowserUtils {
      */
     public static void verifyElementNotDisplayed(By by) {
         try {
-            Assert.assertFalse(Driver.getDriver().findElement(by).isDisplayed(), "Element should not be visible: " + by);
+            Assert.assertFalse("Element should not be visible: " + by, Driver.getDriver().findElement(by).isDisplayed());
         } catch (NoSuchElementException e) {
             logger.error(e);
             e.printStackTrace();

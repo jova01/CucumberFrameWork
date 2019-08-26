@@ -1,39 +1,63 @@
 package com.vytrack.step_definition;
 
+import com.vytrack.utilities.ConfigurationReader;
+import com.vytrack.utilities.Pages;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 
-public class LoginStepDefinitions {
+import java.util.Map;
 
-    @Given("Open Vytrack login page")
-    public void open_Vytrack_login_page() {
+public class LoginStepDefinitions extends Pages{
 
+
+    @Then("user logs in as a store manager")
+    public void userLogsInAsAStoreManager() {
+        loginPage().login(ConfigurationReader.getProperty("storemanagerusername"),ConfigurationReader.getProperty("storemanagerpassword"));
+        loginPage().waitUntilLoaderScreenDisappear();
+    }
+    @Then("user verifies that {string} page name is displayed")
+    public void user_verifies_that_page_name_is_displayed(String expected) {
+        Assert.assertEquals(expected,dashboardPage().getPageSubTitle());
 
     }
 
-    @When("Enter valid username and invalid password credentials")
-    public void enter_valid_username_and_invalid_password_credentials() {
+    @Then("user logs in with {string} username and {string} password")
+    public void user_logs_in_with_username_and_password(String wrongUsername, String wrongPassword) {
+      loginPage().login(wrongUsername,wrongPassword);
+    }
 
+    @Then("user verifies that {string} warning message is diplayed")
+    public void user_verifies_that_warning_message_is_diplayed(String expected) {
+        Assert.assertEquals(expected, loginPage().getErrorMessage());
+    }
+
+    @Then("user logs in as a driver username {string} and password {string}")
+    public void user_logs_in_as_a_driver_username_and_password(String username, String password) {
+        loginPage().login(username,password);
+        loginPage().waitUntilLoaderScreenDisappear();
 
     }
 
-    @When("Click login button")
-    public void click_login_button() {
-
-
-    }
-
-    @Then("Message Invalid user name or password. should be displayed")
-    public void message_Invalid_user_name_or_password_should_be_displayed() {
-
+    @When("user logs in as a {string}")
+    public void user_logs_in_as_a(String string) {
+        loginPage().login(string);
+        loginPage().waitUntilLoaderScreenDisappear();
 
     }
 
-    @Then("Page title and url should be the same")
-    public void page_title_and_url_should_be_the_same() {
 
-
+    @Given("user logs in with following credentials")
+    public void user_logs_in_with_following_credentials(Map<String, String> values) {
+        System.out.println(values);
+        loginPage().login(values.get("username"), values.get("password"));
+        loginPage().waitUntilLoaderScreenDisappear();
     }
+
+
+
+
+
 
 }

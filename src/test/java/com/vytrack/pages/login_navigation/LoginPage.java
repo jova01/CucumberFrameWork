@@ -3,6 +3,7 @@ package com.vytrack.pages.login_navigation;
 import com.vytrack.utilities.BasePage;
 import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.ConfigurationReader;
+import gherkin.ast.TableRow;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +15,7 @@ public class LoginPage extends BasePage {
     @CacheLookup
     public WebElement userNameElement;
 
-    @FindBy(name = "_password")
+    @FindBy(id = "prependedInput2")
     @CacheLookup
     public WebElement passwordElement;
 
@@ -40,7 +41,7 @@ public class LoginPage extends BasePage {
         loginButtonElement.click();
     }
 
-    public void login(){
+    public void login(TableRow tableRow, TableRow row){
         String username = ConfigurationReader.getProperty("storemanagerusername");
         String password = ConfigurationReader.getProperty("storemanagerpassword");
         userNameElement.sendKeys(username);
@@ -57,5 +58,30 @@ public class LoginPage extends BasePage {
         if(!rememberMeElement.isSelected()){
             rememberMeElement.click();
         }
+    }
+
+
+
+
+    public void login(String role){
+        String username="";
+        String password="";
+
+        if(role.equalsIgnoreCase("driver")){
+            username=ConfigurationReader.getProperty("driverusername");
+            password=ConfigurationReader.getProperty("password");
+        }else if(role.equalsIgnoreCase("storemanager")){
+            username=ConfigurationReader.getProperty("storemanagerusername");
+            password=ConfigurationReader.getProperty("storemanagerpassword");
+        }else if(role.equalsIgnoreCase("salesmanager")){
+            username=ConfigurationReader.getProperty("salesmanagerusername");
+            password=ConfigurationReader.getProperty("salesmanagerpassword");
+        }
+
+        userNameElement.sendKeys(username);
+        passwordElement.sendKeys(password);
+        loginButtonElement.click();
+
+
     }
 }
