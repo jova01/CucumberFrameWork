@@ -10,6 +10,7 @@ import org.junit.Assert;
 import java.util.Map;
 
 public class LoginStepDefinitions extends Pages{
+    Pages pages=new Pages();
 
 
     @Then("user logs in as a store manager")
@@ -17,6 +18,7 @@ public class LoginStepDefinitions extends Pages{
         loginPage().login(ConfigurationReader.getProperty("storemanagerusername"),ConfigurationReader.getProperty("storemanagerpassword"));
         loginPage().waitUntilLoaderScreenDisappear();
     }
+
     @Then("user verifies that {string} page name is displayed")
     public void user_verifies_that_page_name_is_displayed(String expected) {
         Assert.assertEquals(expected,dashboardPage().getPageSubTitle());

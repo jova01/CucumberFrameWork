@@ -2,6 +2,7 @@
 Feature: All Calendar Events
   As user I want to be able to see all calendar events as a table
 
+  @calendar
   Scenario: Verify column names
     Given user logs in as a "storemanager"
     When user navigates to "Activities" and "Calendar Events"

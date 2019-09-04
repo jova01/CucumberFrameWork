@@ -16,8 +16,8 @@ public class Hook {
 
     @Before(order = 2)
     public void setup(Scenario scenario){
-        System.out.println(scenario.getSourceTagNames());
-        System.out.println(scenario.getName());
+//        System.out.println(scenario.getSourceTagNames());
+//        System.out.println(scenario.getName());
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Driver.getDriver().get(ConfigurationReader.getProperty("url"+ConfigurationReader.getProperty("environment")));
